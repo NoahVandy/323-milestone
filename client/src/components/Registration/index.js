@@ -1,9 +1,7 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 
 import RegisterPage from './view';
-
-import axios from 'axios';
-import { useHistory } from 'react-router'
 
 export default function Register({ setCurrentUser }) {
 
@@ -14,8 +12,6 @@ export default function Register({ setCurrentUser }) {
   const [email, setEmail] = useState('');
   const [gradeLevel, setGradeLevel] = useState('');
   const [birthday, setBirthDay] = useState('');
-
-  const history = useHistory();
 
   const onSubmit = () => {
     axios.post('http://localhost:3001/api/createUser', 

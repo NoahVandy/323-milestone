@@ -11,6 +11,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import HomeIcon from '@material-ui/icons/Home';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import StarIcon from '@material-ui/icons/Star';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 import {
   BrowserRouter as Router,
@@ -18,6 +19,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
+
 import Register from '../Registration';
 import Login from '../Login'
 import Profile from '../Profile';
@@ -43,6 +45,13 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing(3),
   },
+  link: {
+    textDecoration: 'none',
+    color: '#232360'
+  },
+  icon: {
+    color: '#5E5EFF',
+  },
 }));
 
 export default function PermanentDrawerLeft() {
@@ -65,34 +74,50 @@ export default function PermanentDrawerLeft() {
         <div className={classes.toolbar} />
           <Divider />
             <List>
-              <Link to='/home'>
+              <Link to='/home' className={classes.link}>
                 <ListItem button>
-                  <ListItemIcon>
+                  <ListItemIcon className={classes.icon}>
                     <HomeIcon />
                   </ListItemIcon>
-                  <ListItemText primary={'Home Page'} />
+                  <ListItemText primary={'Home Page'}  className={classes.link}/>
                 </ListItem>
               </Link>
-              <ListItem button>
-                <ListItemIcon>
-                  <MonetizationOnIcon />
-                </ListItemIcon>
-                <ListItemText primary={'Marketplace'} />
-              </ListItem>
-              <ListItem button>
-                <ListItemIcon>
-                  <StarIcon />
-                </ListItemIcon>
-                <ListItemText primary={'Favorited Items'} />
-              </ListItem>
-              <Link to={currentUser ? `/profile/${currentUser.id}` : `/login`} >
+              <Link className={classes.link}>
                 <ListItem button>
-                  <ListItemIcon>
+                  <ListItemIcon className={classes.icon}>
+                    <MonetizationOnIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={'Marketplace'}  className={classes.link}/>
+                </ListItem>
+              </Link>
+              <Link className={classes.link}>
+                <ListItem button >
+                  <ListItemIcon className={classes.icon}>
+                    <StarIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={'Favorited Items'}  className={classes.link}/>
+                </ListItem>
+              </Link>
+              <Link to={currentUser ? `/profile/${currentUser.id}` : `/login`} className={classes.link} >
+                <ListItem button>
+                  <ListItemIcon className={classes.icon}>
                     <PersonIcon />
                   </ListItemIcon>
-                  <ListItemText primary= {currentUser ? currentUser.first_name + "'s Profile" : 'Profile'} />
+                  <ListItemText primary= {currentUser ? currentUser.firstName + "'s Profile" : 'Profile'}  className={classes.link}/>
                 </ListItem>
               </Link>
+              {currentUser && (
+                <Link to='/login' className={classes.link}>
+                  <ListItem button onClick={() => {
+                    setCurrentUser(null);
+                  }}>
+                    <ListItemIcon className={classes.icon}>
+                      <ExitToAppIcon />
+                    </ListItemIcon>
+                    <ListItemText primary='Logout' className={classes.link}/>
+                  </ListItem>
+                </Link>
+              )}
             </List>
           <Divider />
         </Drawer>

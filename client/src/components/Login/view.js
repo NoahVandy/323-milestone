@@ -49,7 +49,8 @@ const useStyles = makeStyles({
 function LoginPage({ 
     setUsername, 
     setPassword, 
-    onSubmit
+    onSubmit,
+    switchToRegister
   }) {
   const classes = useStyles();
 
@@ -92,6 +93,14 @@ function LoginPage({
           className={classes.button}
         >
           Login
+        </Button>
+        <br />
+        <Button
+          variant="contained"
+          onClick={switchToRegister}
+          className={classes.button}
+        >
+          Register New Account
         </Button>
       </header>
     </div>
