@@ -8,6 +8,7 @@
 # production
 /build
 # misc
+.eslintcache
 .DS_Store
 .env.local
 .env.development.local
