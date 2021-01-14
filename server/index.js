@@ -163,16 +163,16 @@ app.post('/api/getUserByCredentials', (req, res) => {
 /**
  * updates an exisitng user from a post method
  */
-app.post('/api/update', (req, res) => {
+app.post('http://localhost:3001/api/editUser', (req, res) => {
 
-  const id = req.body.id;
-  const firstName = req.body.firstName;
-  const lastName = req.body.lastName;
-  const favColor = req.body.favColor;
-  const favTeam = req.body.favTeam;
+  const id = req.body.userId;
+  const username = req.body.username;
+  const email = req.body.email;
+  const gradeLevel = req.body.gradeLevel;
+  const birthday = req.body.birthday;
 
 
-  const sqlInsert = `UPDATE users set firstName = '${firstName}', lastName = '${lastName}', favColor = '${favColor}', favTeam = '${favTeam}' where id = ${id};`;
+  const sqlInsert = `UPDATE users set username = '${username}', email = '${email}', gradeLevel = '${gradeLevel}', birthday = '${birthday}' where id = ${id};`;
   connection.query(sqlInsert, (err, result) => {
     if (err) {
       console.log(err);
@@ -186,8 +186,8 @@ app.post('/api/update', (req, res) => {
 /**
  * gets all users from a database
  */
-app.get('/api/get', (req, res) => {
-  const sql = `SELECT * from users;`;
+app.get('/api/getItems', (req, res) => {
+  const sql = `SELECT * from items;`;
   connection.query(sql, (err, result) => {
     if (err) {
       console.log(err);
@@ -196,6 +196,32 @@ app.get('/api/get', (req, res) => {
     res.send(result);
   });
 })
+
+app.post('/api/createItem', (req, res) => {
+
+  const title = req.body.title;
+  const desc = req.body.desc;
+  const price = req.body.price;
+  const userId = req.body.userId;
+
+
+  const sqlInsert = `INSERT INTO items
+    VALUES (
+      null, 
+      '${title}', 
+      '${desc}', 
+      ${userId}, 
+      '${price}'
+      );`;
+  connection.query(sqlInsert, (err, result) => {
+    if (err) {
+      console.log(err);
+      throw err;
+    }
+    console.log(result);
+    res.send(result);
+  });
+});
 
 app.listen(3001, () => {
   console.log("running on port 3001");

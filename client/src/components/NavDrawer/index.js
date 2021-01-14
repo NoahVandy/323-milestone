@@ -23,6 +23,7 @@ import {
 import Register from '../Registration';
 import Login from '../Login'
 import Profile from '../Profile';
+import Marketplace from '../Marketplace';
 
 const drawerWidth = 240;
 
@@ -82,7 +83,7 @@ export default function PermanentDrawerLeft() {
                   <ListItemText primary={'Home Page'}  className={classes.link}/>
                 </ListItem>
               </Link>
-              <Link className={classes.link}>
+              <Link to='/marketplace' className={classes.link}>
                 <ListItem button>
                   <ListItemIcon className={classes.icon}>
                     <MonetizationOnIcon />
@@ -124,6 +125,11 @@ export default function PermanentDrawerLeft() {
       </div>
       <div className="App-header">
         <Switch>
+          <Route path="/marketplace">
+            <Marketplace 
+              userId={currentUser?.id}
+            />
+          </Route>
           <Route path="/profile/:userId">
             <Profile />
           </Route>

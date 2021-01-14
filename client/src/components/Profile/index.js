@@ -17,10 +17,28 @@ export default function Profile() {
     }
   },[userId])
 
+  const onEdit = (user) => {
+    console.log(user)
+    axios.post(`http://localhost:3001/api/editUser`, {
+      userId: user?.id,
+      username: user?.username,
+      email: user?.email,
+      birtday: user?.birthday,
+      gradeLevel: user?.gradeLevel
+    }).then((response) => {
+      if(response.data.affectedRows === 1) {
+        axios.get(`http://localhost:3001/api/getUser/${user?.id}`).then((response) => {
+        setUser(response.data[0]);
+      }); 
+      }
+    })
+  }
+
   return (
     <div>
       <ProfilePage 
         user={user}
+        onEdit={onEdit}
       />
     </div>
   )
