@@ -46,6 +46,7 @@ export default function Marketplace({ userId }) {
         .then((response) => {
           console.log(response.data)
           setItems(response.data);
+          toggleCreate();
         })
       }
     })
