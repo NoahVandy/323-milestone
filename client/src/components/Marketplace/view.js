@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function MarketplaceView({ items, toggleCreate }) {
+export default function MarketplaceView({ items, toggleCreate, showItem }) {
 
   const classes = useStyles();
 
@@ -47,9 +47,11 @@ export default function MarketplaceView({ items, toggleCreate }) {
             {items?.map((i) => 
               <Grid item >
                 <ItemCard 
+                  showItem={showItem}
                   title={i.title}
                   desc={i.desc}
                   price={i.price}
+                  id={i.id}
                 />
               </Grid>
             )}

@@ -141,6 +141,21 @@ app.get('/api/getUser/:userId', (req, res) => {
   });
 })
 
+app.get('/api/getItem/:itemId', (req, res) => {
+
+  const itemId = req.params.itemId;
+
+  const sql = `SELECT * from items where id = ${itemId};`;
+  connection.query(sql, (err, result) => {
+    if (err) {
+      console.log(err);
+      throw err;
+    }
+    console.log(result);
+    res.send(result);
+  });
+})
+
 /**
  * gets an exisitng user through a url parameter from a get method 
  */

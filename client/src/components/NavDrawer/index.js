@@ -24,6 +24,7 @@ import Register from '../Registration';
 import Login from '../Login'
 import Profile from '../Profile';
 import Marketplace from '../Marketplace';
+import Item from '../Marketplace/components/ItemPage/Index';
 
 const drawerWidth = 240;
 
@@ -125,8 +126,13 @@ export default function PermanentDrawerLeft() {
       </div>
       <div className="App-header">
         <Switch>
-          <Route path="/marketplace">
+          <Route path="/marketplace" exact>
             <Marketplace 
+              userId={currentUser?.id}
+            />
+          </Route>
+          <Route path="/marketplace/:itemId">
+            <Item 
               userId={currentUser?.id}
             />
           </Route>
@@ -144,8 +150,8 @@ export default function PermanentDrawerLeft() {
             />
           </Route>
           <Route path="/">
-            <Register 
-              setCurrentUser={setCurrentUser}
+            <Marketplace 
+              userId={currentUser?.id}
             />
           </Route>
         </Switch>

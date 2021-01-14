@@ -23,6 +23,11 @@ export default function Marketplace({ userId }) {
     })
   },[])
 
+  const showItem = (id) => {
+    console.log("id", id);
+    history.push(`/marketplace/${id}`);
+  }
+
   const onSubmit = () => {
     console.log(userId);
     if(!userId) {
@@ -56,6 +61,7 @@ export default function Marketplace({ userId }) {
       <MarketplaceView 
         items={items}
         toggleCreate={toggleCreate}
+        showItem={showItem}
       />
       {isCreating && (
         <CreateDrawer 
