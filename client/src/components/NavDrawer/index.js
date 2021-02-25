@@ -6,12 +6,15 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import Typography from '@material-ui/core/Typography'
 
 import PersonIcon from '@material-ui/icons/Person';
 import HomeIcon from '@material-ui/icons/Home';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import StarIcon from '@material-ui/icons/Star';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 
 import {
   BrowserRouter as Router,
@@ -20,13 +23,14 @@ import {
   Link
 } from "react-router-dom";
 
+import Home from '../Home';
 import Register from '../Registration';
 import Login from '../Login'
 import Profile from '../Profile';
 import Marketplace from '../Marketplace';
 import Item from '../Marketplace/components/ItemPage/Index';
 
-const drawerWidth = 240;
+const drawerWidth = 350;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,8 +44,6 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
     backgroundColor: '#F6F6FF'
   },
-  // necessary for content to be below app bar
-  toolbar: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
@@ -54,9 +56,17 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     color: '#5E5EFF',
   },
+  menuButton: {
+    marginTop: 8,
+    marginBottom: 8,
+    marginRight: 'auto',
+    marginLeft: theme.spacing(2),
+    justifyContent: 'left',
+  },
+  
 }));
 
-export default function PermanentDrawerLeft() {
+export default function PermanentDrawerLeft({isOpen, setIsOpen}) {
   const classes = useStyles();
 
   const [currentUser, setCurrentUser] = useState();
@@ -67,13 +77,19 @@ export default function PermanentDrawerLeft() {
       <div className={classes.root}>
         <Drawer
           className={classes.drawer}
-          variant="permanent"
           classes={{
             paper: classes.drawerPaper,
           }}
           anchor="left"
+          open={isOpen}
         >
         <div className={classes.toolbar} />
+          <IconButton className={classes.menuButton} color="inherit" aria-label="menu" onClick={() => setIsOpen(!isOpen)}>
+            <MenuIcon />
+          </IconButton>
+          <Typography  variant="h6" className={classes.title}>
+            college trade.
+          </Typography>
           <Divider />
             <List>
               <Link to='/home' className={classes.link}>
@@ -149,10 +165,8 @@ export default function PermanentDrawerLeft() {
               setCurrentUser={setCurrentUser}
             />
           </Route>
-          <Route path="/">
-            <Marketplace 
-              userId={currentUser?.id}
-            />
+          <Route path="/home">
+            <Home />
           </Route>
         </Switch>
       </div>
