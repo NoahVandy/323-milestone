@@ -63,7 +63,9 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(2),
     justifyContent: 'left',
   },
-  
+  // title: {
+
+  // }
 }));
 
 export default function PermanentDrawerLeft({isOpen, setIsOpen}) {
@@ -73,6 +75,7 @@ export default function PermanentDrawerLeft({isOpen, setIsOpen}) {
 
   return (
     <>
+    
     <Router>
       <div className={classes.root}>
         <Drawer
@@ -84,12 +87,14 @@ export default function PermanentDrawerLeft({isOpen, setIsOpen}) {
           open={isOpen}
         >
         <div className={classes.toolbar} />
+          <ListItem>
           <IconButton className={classes.menuButton} color="inherit" aria-label="menu" onClick={() => setIsOpen(!isOpen)}>
             <MenuIcon />
           </IconButton>
           <Typography  variant="h6" className={classes.title}>
             college trade.
           </Typography>
+          </ListItem>
           <Divider />
             <List>
               <Link to='/home' className={classes.link}>

@@ -12,8 +12,8 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     backgroundColor: "transparent",
     "& .MuiAppBar-colorPrimary": {
-      backgroundColor: 'transparent',
-      color: '#000',
+      backgroundColor: '#2e4f57',
+      color: '#fff',
     },
   },
   menuButton: {
@@ -31,7 +31,7 @@ export default function ButtonAppBar({toggleOpen}) {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" >
         <Toolbar>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={toggleOpen}>
             <MenuIcon />

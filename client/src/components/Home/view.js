@@ -3,6 +3,8 @@ import backgroundImg from '../../resources/pics/homeBackground.jpg';
 
 import { makeStyles } from '@material-ui/core/styles';
 
+import SearchBar from '../Reusable/SearchBar';
+
 const useStyles = makeStyles({
   background: {
     backgroundImage: `url(${backgroundImg})`,
@@ -18,6 +20,7 @@ export default function Home () {
 
   return (
     <div className={classes.background}>
+      <SearchBar />
     </div>
   )
   
