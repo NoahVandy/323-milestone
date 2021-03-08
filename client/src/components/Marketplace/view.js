@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Button, makeStyles, AppBar } from '@material-ui/core'
+import { Grid, Button, makeStyles, AppBar, Typography } from '@material-ui/core'
 
 import ItemCard from './components/ItemCard';
 
@@ -17,7 +17,13 @@ const useStyles = makeStyles({
     height: 64,
   },
   container: {
-    width:'100vh'
+    width:'100%',
+    height: '100vh',
+    margin: 50
+  },
+  header: {
+    fontSize: 42,
+    textAlign: 'left',
   }
 });
 
@@ -25,21 +31,20 @@ export default function MarketplaceView({ items, toggleCreate, showItem }) {
 
   const classes = useStyles();
 
-
   return (
     <div>
-      <AppBar className={classes.topGrid}>
-        <Grid container justify="flex-end">
-          <Button 
-            onClick={toggleCreate}
-            className={classes.button}
-          >
-            Create New +
-          </Button>
-        </Grid>
-      </AppBar>
       <Grid container spacing={3} className={classes.container}>
-        
+        <Grid xs={1}></Grid>
+        <Grid 
+          xs={11} 
+          direction="column"
+          alignItems="center"
+          justify="center"
+        >
+          <Typography className={classes.header}>
+            new items.
+          </Typography>
+        </Grid>
         <Grid xs={1} item></Grid>
 
         <Grid xs={10}>

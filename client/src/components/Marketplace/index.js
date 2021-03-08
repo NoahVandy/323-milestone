@@ -18,7 +18,7 @@ export default function Marketplace({ userId }) {
   useEffect(() => {
     axios.get(`http://localhost:3001/api/getItems`)
     .then((response) => {
-      console.log(response.data)
+      console.log("listings", response.data)
       setItems(response.data);
     })
   },[])

@@ -22,6 +22,9 @@ export default function Login({ setCurrentUser }) {
         setCurrentUser(response.data[0]);
         history.push(`/profile/${response.data[0]?.id}`)
       }
+      else {
+        alert('no user found');
+      }
     });
   }
 

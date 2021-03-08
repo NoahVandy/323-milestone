@@ -2,8 +2,11 @@ import React from 'react';
 
 import SearchBarView from './view';
 
-export default function SearchBar() {
+export default function SearchBar({ value, onChange }) {
   return (
-    <SearchBarView />
+    <SearchBarView 
+      handleChange={onChange}
+      value={value}
+    />
   )
 }
