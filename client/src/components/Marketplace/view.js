@@ -16,15 +16,6 @@ const useStyles = makeStyles({
     backgroundColor: '#F6F6FF',
     height: 64,
   },
-  container: {
-    width:'100%',
-    height: '100vh',
-    margin: 50
-  },
-  header: {
-    fontSize: 42,
-    textAlign: 'left',
-  }
 });
 
 export default function MarketplaceView({ items, toggleCreate, showItem }) {
@@ -33,18 +24,7 @@ export default function MarketplaceView({ items, toggleCreate, showItem }) {
 
   return (
     <div>
-      <Grid container spacing={3} className={classes.container}>
-        <Grid xs={1}></Grid>
-        <Grid 
-          xs={11} 
-          direction="column"
-          alignItems="center"
-          justify="center"
-        >
-          <Typography className={classes.header}>
-            new items.
-          </Typography>
-        </Grid>
+      <Grid container>
         <Grid xs={1} item></Grid>
 
         <Grid xs={10}>
@@ -62,7 +42,6 @@ export default function MarketplaceView({ items, toggleCreate, showItem }) {
             )}
           </Grid>
         </Grid>
-        <Grid xs={1} item></Grid>
       </Grid>
     </div>
   )

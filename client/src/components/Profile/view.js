@@ -5,22 +5,37 @@ import Typography from '@material-ui/core/Typography';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { TextField, InputLabel, Grid, Button } from '@material-ui/core';
 
+import profileBackground from '../../resources/pics/shoe-background.jpg';
+
 const useStyles = makeStyles({
   container: {
-    backgroundColor: '#5E5EFF',
+    backgroundImage: `url(${profileBackground})`,
+    backgroundRepeat: 'no-repeat, repeat',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center center',
+    // filter: 'blur(3px)',
+    // WebkitFilter: 'blur(3px)',
+    maxHeight: 300,
+    minHeight: 300,
     display: 'flex',
-    padding: 50,
     paddingBottom: 0,
-    paddingTop: 10,
-    borderRadius: 10,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
     fontSize: 'calc(10px + 2vmin)',
     color: 'white',
     minWidth: 300,
-    borderBottomRightRadius: 0,
-    borderBottomLeftRadius: 0,
+  },
+  blur: {
+    background: 'rgba(255, 255, 255, 0.2)',
+    backdropFilter: 'blur(8px)',
+    height: 300,
+    width: '100%'
+  },
+  containerText: {
+    filter: 'blur(0px)',
+    fontSize: 50,
+    marginTop: 100
   },
   bodyContainer: {
     backgroundColor: '#fff',
@@ -64,12 +79,11 @@ export default function ProfilePage({ user, onEdit }) {
   return (
     <div>
       <header className={classes.container}>
-        <AccountCircleIcon 
-          className={classes.profilePic}
-        />
-        <Typography variant='h3'>
-          {user?.firstName} {user?.lastName}
-        </Typography>
+        <div className={classes.blur}>
+          <Typography className={classes.containerText}>
+            {user?.username}
+          </Typography>
+        </div>
       </header>
       <div className={classes.bodyContainer}>
         <TextField 
