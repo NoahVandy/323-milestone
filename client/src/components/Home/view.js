@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import SearchBar from '../Reusable/SearchBar';
 import MarketplaceView from '../Marketplace/view';
-import { Grid, Paper, Typography } from '@material-ui/core';
+import { Grid, Paper, Typography, CircularProgress } from '@material-ui/core';
 
 const useStyles = makeStyles({
   background: {
@@ -43,7 +43,7 @@ const useStyles = makeStyles({
   
 });
 
-export default function Home ({ onChange, search, items }) {
+export default function Home ({ onChange, search, items, loading }) {
 
   const classes = useStyles();
 
@@ -78,9 +78,15 @@ export default function Home ({ onChange, search, items }) {
           </Grid>
         </Grid>
         <div className={classes.container}>
+        {loading ? (
+          <div>
+            <CircularProgress />
+          </div>
+        ) : (
           <MarketplaceView 
             items={items}
           />
+        )}
         </div>
       </section>
     </>

@@ -141,7 +141,7 @@ app.get('/api/getUser/:userId', (req, res) => {
   });
 })
 
-app.get('/api/getItem/:itemId', (req, res) => {
+app.get('/api/getItem/:itemId', async (req, res) => {
 
   const itemId = req.params.itemId;
 
