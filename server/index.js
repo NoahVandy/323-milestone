@@ -3,16 +3,128 @@ const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
+const MongoClient = require('mongodb').MongoClient;
+const { ObjectId } = require('mongodb');
+const moment = require('moment');
+const userService = require('./services/userService');
 
-const connection = mysql.createConnection({
-  host: 'localhost',
-  port: '3306',
-  user: 'root',
-  password: 'root',
-  database: '323-milestone'
+// const connection = mysql.createConnection({
+//   host: 'localhost',
+//   port: '3306',
+//   user: 'root',
+//   password: 'root',
+//   database: '323-milestone'
+// })
+
+const uri = "mongodb+srv://NoahVandy:kfKCNwA9FLyh1XN7@collegetradedb.eriyx.mongodb.net/CollegeTradeDB?retryWrites=true&w=majority";
+
+
+MongoClient.connect(uri, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true
+  }, (err, client) => {
+  if(err) {
+    console.log(err);
+    return;
+  }
+  console.log('connected');
+  const db = client.db('test');
+
+  app.get('/mongotestfind', (req, res) => {
+    db.collection('devices').find().toArray()
+    .then(results => {
+      console.log(results);
+      res.status(200).send(results);
+    }).catch(err => {
+      console.log(err);
+      res.status(500).send(err);
+      client.close();
+      return;
+    });
+  })
+
+  app.get('/mongotestfindone/:userId', (req, res) => {
+
+    const userId = req.params.userId;
+    console.log(userId.toString())
+
+    const query = {
+      "_id": ObjectId(`${userId}`)
+    }
+
+    db.collection('devices').findOne(query)
+    .then(results => {
+      console.log(results);
+      res.status(200).send(results);
+    }).catch(err => {
+      console.log(err);
+      res.status(500).send(err);
+      return;
+    });
+  })
+
+  app.post('/monogo/createNewUser', (req, res) => {
+    const collection = client.db("users").collection("users");
+    const user = {
+      ...req.body,
+      "isDeleted": false,
+      "securityLevel": 1,
+      "role": "user",
+      "isVerified": false,
+      "dataCreated": moment.utc().unix(),
+    }
+
+    collection.insertOne(user)
+    .then(result => {
+      if(result.insertedCount === 1) {
+        console.log(result);
+        const flag = userService.SendVerificationEmail(client, result.ops[0]);
+        if(flag) {
+          res.status(200).send(result);
+        }
+        else {
+          res.status(500).send(result);
+        }
+      }
+      else {
+        console.log(err);
+        res.status(500).send(result);
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).send(err);
+      return;
+    })
+
+  })
+
+  app.get('/mongo/verifyEmail/:token_id', (req, res) => {
+    const token_id = req.params.token_id;
+    const flag = userService.verifyUserFromEmail(client, token_id);
+
+    if(flag === false) {
+      res.status(200).send("verified");
+    }else {
+      res.status(500).send("not verified");
+    }
+  })
+
+  app.post('/mongotest', (req, res) => {
+    const collection = client.db("test").collection("devices");
+    
+    collection.insertOne(req.body)
+    .then(result => {
+      console.log(result);
+      res.status(200).send(result);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).send(err);
+      return;
+    })
+  })
 })
-
-connection.connect();
 
 app.use(bodyParser.urlencoded({
   extended: true,
@@ -22,7 +134,12 @@ app.use(express.json());
 
 app.get('/', (req, res) => {
   res.send("hello Noah");
+  console.log("has been clicked");
 });
+
+app.get('gettestmongo', (req, res) => {
+
+})
 
 /**
  * Inserting a user through a post method
