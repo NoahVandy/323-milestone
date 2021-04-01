@@ -5,14 +5,13 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { Typography } from '@material-ui/core';
+import { Typography, Grid, Divider, Link, Fab } from '@material-ui/core';
 
 const useStyles = makeStyles({
   container: {
     backgroundColor: '#5E5EFF',
     display: 'flex',
     padding: 50,
-    borderRadius: 10,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
@@ -21,28 +20,75 @@ const useStyles = makeStyles({
     minWidth: 300,
   },
   loginInput: {
-    minWidth: 225,
+    borderColor: '#2e4f57',
     '& label.Mui-focused': {
-      color: '#F1F0FF',
+      color: '#2e4f57',
+      borderColor: '#2e4f57',
+    },
+    '& MuiOutlinedInput-root.Mui-focused': {
+      borderColor: '#2e4f57',
+    },
+    '& .MuiOutlinedInput-notchedOutline': {
+      borderColor: '#2e4f57',
     },
     '& .MuiInput-underline:after': {
-      borderBottomColor: 'white',
+      borderBottomColor: '#2e4f57',
     },
     '& label': {
-      color: '#F1F0FF',
+      color: '#2e4f57',
     },
     '& .MuiInput-underline:before': {
-      borderBottomColor: 'white',
+      borderBottomColor: '#2e4f57',
     },
     '& .MuiInputBase-input': {
-      color: '#F1F0FF',
+      color: '#2e4f57',
       backgroundColor: 'transparent'
     },
-    color: '#F1F0FF'
+    color: '#2e4f57',
+    maxWidth: '80%',
   },
   button: {
+    backgroundColor: '#2e4f57',
+    color:'#fff',
+    maxWidth: 100,
+    float: 'left'
+  },
+  registerButton: {
     backgroundColor: '#fff',
-    color:'#7373AF'
+    color:'#2e4f57',
+    maxWidth: 250,
+    alignContent: 'end'
+  },
+  loginContainer: {
+    minWidth: 1000,
+  },
+  loginContainerLeft: {
+    backgroundColor: "#2e4f57",
+    minHeight: 500,
+    color: '#fff',
+  },
+  loginContainerRight: {
+    backgroundColor: "#fff",
+    minHeight: 500,
+    paddingLeft: 20,
+    paddingRight: 20,
+  },
+  loginTitle: {
+    paddingTop: 15,
+    paddingBottom: 15,
+    color: "#2e4f57",
+  },
+  divider: {
+    backgroundColor: '#2e4f57',
+    height: 2,
+    marginBottom: 70,
+  },
+  title: {
+    paddingTop: '40%',
+  },
+  forgotPassword: {
+    textAlign:'start',
+    color: '#2e4f57'
   }
 });
 
@@ -65,44 +111,68 @@ function LoginPage({
 
   return (
     <div className="App">
-      <header className={classes.container}>
-        <Typography
-          variant='h3'
-        >
-          Login
-        </Typography>
-        <br />
-        <TextField 
-          id="username" 
-          label="Username" 
-          variant="standard"
-          className={classes.loginInput}
-          onChange={onChangeInput} 
-        />
-        <TextField 
-          id="password" 
-          label="Password" 
-          variant="standard"
-          className={classes.loginInput}
-          onChange={onChangeInput} 
-        />
-        <br />
-        <Button
-          variant="contained"
-          onClick={onSubmit}
-          className={classes.button}
-        >
-          Login
-        </Button>
-        <br />
-        <Button
-          variant="contained"
-          onClick={switchToRegister}
-          className={classes.button}
-        >
-          Register New Account
-        </Button>
-      </header>
+      <Grid container direction="row" className={classes.loginContainer} alignContent='flex-start'>
+        <Grid item xs={6} >
+          <div className={classes.loginContainerLeft}>
+            <Typography
+              variant='h3'
+              className={classes.title}
+            >
+              college trade.
+            </Typography>
+          </div>
+        </Grid>
+        <Grid item xs={6}>
+          <div className={classes.loginContainerRight}>
+            <Typography
+              variant='h3'
+              className={classes.loginTitle}
+            >
+              log in.
+            </Typography>
+            <Divider 
+              className={classes.divider}
+            />
+            <Grid container direction='column'>
+              <TextField 
+                id="username" 
+                label="Username" 
+                className={classes.loginInput}
+                onChange={onChangeInput} 
+                fullWidth
+              />
+              <TextField 
+                type='password'
+                id="password" 
+                label="Password" 
+                className={classes.loginInput}
+                onChange={onChangeInput} 
+                fullWidth
+              />
+              <br />
+              <Link to='/forgotpassword' className={classes.forgotPassword}>
+                Forgot Password?
+              </Link>
+              <br />
+            </Grid>
+              <br />
+              <Button
+                variant="contained"
+                onClick={onSubmit}
+                className={classes.button}
+              >
+                log in
+              </Button>
+              <Button
+                variant="contained"
+                onClick={switchToRegister}
+                className={classes.registerButton}
+              >
+                Register New Account
+              </Button>
+          </div>
+        </Grid>
+      </Grid>
     </div>
   );
 }

@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 
-export default function ButtonAppBar({toggleOpen}) {
+export default function ButtonAppBar({toggleOpen, handleLoginPopup}) {
   const classes = useStyles();
 
   return (
@@ -39,7 +39,7 @@ export default function ButtonAppBar({toggleOpen}) {
           <Typography  variant="h6" className={classes.title}>
             college trade.
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button onClick={() => handleLoginPopup()} color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
     </div>

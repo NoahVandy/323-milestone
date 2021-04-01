@@ -29,6 +29,8 @@ import Login from '../Login'
 import Profile from '../Profile';
 import Marketplace from '../Marketplace';
 import Item from '../Marketplace/components/ItemPage/Index';
+import AppBar from '../Reusable/AppBar';
+import { Dialog } from '@material-ui/core';
 
 const drawerWidth = 350;
 
@@ -72,10 +74,45 @@ export default function PermanentDrawerLeft({isOpen, setIsOpen}) {
   const classes = useStyles();
 
   const [currentUser, setCurrentUser] = useState();
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(true);
+
+  const handleLoginPopup = () => {
+    console.log("loginOpen", dialogOpen);
+    setDialogOpen(!dialogOpen)
+  }
+
+  const switchDialog = () => {
+    setLoginOpen(!loginOpen);
+  }
+
+  const handleDialog = () => {
+    setDialogOpen(!dialogOpen);
+  }
+
+  console.log(currentUser)
 
   return (
     <>
-    
+    <AppBar 
+      isOpen={isOpen}
+      setIsOpen={setIsOpen}
+      handleLoginPopup={handleLoginPopup}
+    />
+    <Dialog open={dialogOpen} onClose={() => setDialogOpen(!dialogOpen)} maxWidth="false">
+      {loginOpen ? (
+        <Login 
+          switchDialog={switchDialog}
+          setCurrentUser={setCurrentUser}
+          handleDialog={handleDialog}
+        />
+      ) : (
+        <Register 
+          switchDialog={switchDialog}
+          setCurrentUser={setCurrentUser}
+        />
+      )}
+    </Dialog>
     <Router>
       <div className={classes.root}>
         <Drawer

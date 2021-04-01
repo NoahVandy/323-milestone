@@ -2,7 +2,7 @@ import React from 'react';
 
 import AppBarView from './view';
 
-export default function AppBar ({isOpen, setIsOpen}) {
+export default function AppBar ({isOpen, setIsOpen, handleLoginPopup}) {
 
   const toggleOpen = () => {
     setIsOpen(!isOpen);
@@ -11,6 +11,7 @@ export default function AppBar ({isOpen, setIsOpen}) {
   return (
     <AppBarView
       toggleOpen={toggleOpen}
+      handleLoginPopup={handleLoginPopup}
     />
   )
 }

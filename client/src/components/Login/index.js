@@ -4,7 +4,7 @@ import { useHistory } from 'react-router'
 
 import LoginPage from './view';
 
-export default function Login({ setCurrentUser }) {
+export default function Login({ setCurrentUser, switchDialog, handleDialog }) {
 
   const history = useHistory();
 
@@ -12,15 +12,15 @@ export default function Login({ setCurrentUser }) {
   const [password, setPassword] = useState('');
 
   const onSubmit = () => {
-    axios.post('http://localhost:3001/api/getUserByCredentials', 
+    axios.post('http://localhost:3002/mongo/loginUserByCredentials', 
     {
       username: username,
       password: password,
     }).then((response) => {
-      if(response.data.length === 1) {
-        console.log(response.data[0])
-        setCurrentUser(response.data[0]);
-        history.push(`/profile/${response.data[0]?.id}`)
+      if(response.data.status === true && response.data.user.isVerified) {
+        console.log(response.data.user)
+        setCurrentUser(response.data.user);
+        handleDialog()
       }
       else {
         alert('no user found');
@@ -37,7 +37,7 @@ export default function Login({ setCurrentUser }) {
     setUsername={setUsername}
     setPassword={setPassword}
     onSubmit={onSubmit}
-    switchToRegister={switchToRegister}
+    switchToRegister={switchDialog}
   />
   )
 }

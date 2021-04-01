@@ -6,6 +6,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { TextField, InputLabel, Grid, Button } from '@material-ui/core';
 
 import profileBackground from '../../resources/pics/shoe-background.jpg';
+import profilePic from '../../resources/pics/profile.jpeg';
 
 const useStyles = makeStyles({
   container: {
@@ -15,8 +16,8 @@ const useStyles = makeStyles({
     backgroundPosition: 'center center',
     // filter: 'blur(3px)',
     // WebkitFilter: 'blur(3px)',
-    maxHeight: 300,
-    minHeight: 300,
+    maxHeight: 200,
+    minHeight: 200,
     display: 'flex',
     paddingBottom: 0,
     flexDirection: 'column',
@@ -35,7 +36,7 @@ const useStyles = makeStyles({
   containerText: {
     filter: 'blur(0px)',
     fontSize: 50,
-    marginTop: 100
+    marginTop: 75
   },
   bodyContainer: {
     backgroundColor: '#fff',
@@ -44,11 +45,9 @@ const useStyles = makeStyles({
     paddingTop: 45,
     borderRadius: 10,
     flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
     fontSize: 'calc(10px + 2vmin)',
     color: 'white',
-    minWidth: 300,
+    width: '100%',
     paddingBottom: 30,
     borderTopRightRadius: 0,
     borderTopLeftRadius: 0,
@@ -57,7 +56,10 @@ const useStyles = makeStyles({
     width: '100%',
   },
   profilePic: {
-    fontSize: '9rem'
+    height: 187.5,
+    maxWidth: '100%',
+    borderRadius: '50%',
+    objectFit: 'contain'
   },
   bodyText: {
     color: '#232360',
@@ -69,6 +71,10 @@ const useStyles = makeStyles({
     color: '#F1F0FF',
     marginBottom: 0,
   },
+  profileHeaderText: {
+    color: '#2e4f57',
+    textAlign: 'left'
+  }
 });
 
 
@@ -85,44 +91,61 @@ export default function ProfilePage({ user, onEdit }) {
           </Typography>
         </div>
       </header>
-      <div className={classes.bodyContainer}>
-        <TextField 
-          value={user?.username}
-          fullWidth
-          focused
-          label='Username'
-          className={classes.bodyText}
-        />
-        <TextField 
-          value={user?.gradeLevel}
-          fullWidth
-          focused
-          label='Grade Level'
-          className={classes.bodyText}
-        />
-        <TextField 
-          value={user?.email}
-          fullWidth
-          focused
-          label='Email'
-          className={classes.bodyText}
-        />
-        <TextField 
-          value={user?.birthday}
-          fullWidth
-          focused
-          label='Birthday'
-          className={classes.bodyText}
-        />
-        {user && (
-          <Button 
-            className={classes.button}
-            onClick={() => onEdit(user)}
-          >
-            Edit Profile
-          </Button>
-        )}
-      </div>
+      <Grid container>
+        <Grid xs={2}></Grid>
+        <Grid xs={8}>
+          <Grid container>
+            <Grid xs={3} direction='column'>
+              <div>
+                <img className={classes.profilePic} src={profilePic}/>
+              </div>
+            </Grid>
+            <Grid xs={9} direction='column'>
+              <div className={classes.bodyContainer}>
+                <Typography className={classes.profileHeaderText} variant='h2'>
+                  {user?.username}
+                </Typography>
+                <Typography className={classes.profileHeaderText} variant='h5'>
+                  24 items listed
+                </Typography>
+                <Typography className={classes.profileHeaderText} variant='h6'>
+                  I'm a senior, and i like selling things lol
+                </Typography>
+                <TextField 
+                  value={user?.gradeLevel}
+                  fullWidth
+                  focused
+                  label='Grade Level'
+                  className={classes.bodyText}
+                />
+                <TextField 
+                  value={user?.email}
+                  fullWidth
+                  focused
+                  label='Email'
+                  className={classes.bodyText}
+                />
+                <TextField 
+                  value={user?.birthday}
+                  fullWidth
+                  focused
+                  label='Birthday'
+                  className={classes.bodyText}
+                />
+                {user && (
+                  <Button 
+                    className={classes.button}
+                    onClick={() => onEdit(user)}
+                  >
+                    Edit Profile
+                  </Button>
+                )}
+              </div>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid xs={2}></Grid>
+      </Grid>
     </div>
   )
 }

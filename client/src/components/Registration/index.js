@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import RegisterPage from './view';
 
-export default function Register({ setCurrentUser }) {
+export default function Register({ setCurrentUser, switchDialog }) {
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -11,10 +11,13 @@ export default function Register({ setCurrentUser }) {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [gradeLevel, setGradeLevel] = useState('');
+  const [preferredPayment, setPreferredPayment] = useState('')
   const [birthday, setBirthDay] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = () => {
-    axios.post('http://localhost:3001/api/createUser', 
+    setLoading(true);
+    axios.post('http://localhost:3002/monogo/createNewUser', 
     {
       firstName: firstName, 
       lastName: lastName,
@@ -23,10 +26,11 @@ export default function Register({ setCurrentUser }) {
       email: email,
       gradeLevel: gradeLevel,
       birthday: birthday,
+      preferredPayment: preferredPayment,
     }).then((response) => {
-      if(response.data.affectedRows === 1) {
-        alert('successfully added to database');
-        setCurrentUser(response.data[0]);
+      if(response.status === 200) {
+        setLoading(false);
+        switchDialog();
       }
     });
 
@@ -41,6 +45,9 @@ export default function Register({ setCurrentUser }) {
     setBirthDay={setBirthDay}
     setEmail={setEmail}
     onSubmit={onSubmit}
+    setPreferredPayment={setPreferredPayment}
+    switchDialog={switchDialog}
+    loading={loading}
   />
   )
 }
